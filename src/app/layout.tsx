@@ -22,9 +22,13 @@ export const metadata: Metadata = {
 	description:
 		"The era of human management is over. Governed by Realtime Pareto Optimization. Join the waitlist for the first Fully Autonomous Algorithmic Agentic Enterprise (FAAAE).",
 	openGraph: {
+		title: "METAREIGNITY",
+		description: "The era of human management is over.",
+		url: "https://waitlist.metareignity.com",
+		siteName: "METAREIGNITY",
 		images: [
 			{
-				url: "/opengraph-image.png",
+				url: "/screenshot.png",
 				width: 1200,
 				height: 630,
 				alt: "METAREIGNITY FAAAE",
@@ -33,7 +37,7 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: "summary_large_image",
-		images: ["/twitter-image.png"],
+		images: ["/screenshot.png"],
 	},
 };
 
