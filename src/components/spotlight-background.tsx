@@ -1,48 +1,55 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { motion } from "motion/react";
+import { useEffect, useRef } from "react";
+import UnicornScene from "unicornstudio-react/next";
 
 export default function SpotlightBackground() {
-	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-	const [isMounted, setIsMounted] = useState(false);
+	const containerRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		setIsMounted(true);
-		// Start in the center of the viewport
-		setMousePosition({
-			x: window.innerWidth / 2,
-			y: window.innerHeight / 2,
-		});
+		const container = containerRef.current;
+		if (!container) return;
 
-		const handleMouseMove = (e: MouseEvent) => {
-			setMousePosition({
-				x: e.clientX,
-				y: e.clientY,
+		// Handle wheel events to allow scrolling while keeping mouse interactivity
+		const handleWheel = (e: WheelEvent) => {
+			e.preventDefault();
+			window.scrollBy({
+				top: e.deltaY,
+				left: e.deltaX,
+				behavior: "auto",
 			});
 		};
 
-		window.addEventListener("mousemove", handleMouseMove);
+		container.addEventListener("wheel", handleWheel, { passive: false });
+
 		return () => {
-			window.removeEventListener("mousemove", handleMouseMove);
+			container.removeEventListener("wheel", handleWheel);
 		};
 	}, []);
 
-	if (!isMounted) return null;
-
 	return (
-		<div className="fixed inset-0 -z-50 h-screen w-screen overflow-hidden bg-background pointer-events-none">
-			{/* Spotlight glow following the cursor */}
-			<div
-				className="absolute inset-0 transition-opacity duration-300 ease-out"
-				style={{
-					background: `radial-gradient(650px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(223, 255, 26, 0.08), transparent 80%)`,
-				}}
+		<motion.div
+			ref={containerRef}
+			className="fixed inset-0 -z-50 h-screen w-screen pointer-events-auto"
+			style={{
+				willChange: "opacity",
+				transform: "translateZ(0)",
+			}}
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
+		>
+			<UnicornScene
+				jsonFilePath="/scenes/flow-background.json"
+				width="100%"
+				height="100%"
+				scale={1}
+				dpi={1}
+				fps={60}
+				onError={(error) => console.error("UnicornScene error:", error)}
+				onLoad={() => console.log("UnicornScene loaded successfully")}
 			/>
-
-			{/* Minimalist Grid Lines Pattern */}
-			<div 
-				className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:36px_36px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]" 
-			/>
-		</div>
+		</motion.div>
 	);
 }

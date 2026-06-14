@@ -27,7 +27,8 @@
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "sonner": "^2.0.3",
-    "tailwind-merge": "^3.3.0"
+    "tailwind-merge": "^3.3.0",
+    "unicornstudio-react": "^1.4.33"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

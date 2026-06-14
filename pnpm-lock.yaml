@@ -53,6 +53,9 @@ importers:
       tailwind-merge:
         specifier: ^3.3.0
         version: 3.3.0
+      unicornstudio-react:
+        specifier: ^1.4.33
+        version: 1.5.2(next@15.5.18(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -2434,6 +2437,17 @@ packages:
 
   unenv@2.0.0-rc.24:
     resolution: {integrity: sha512-i7qRCmY42zmCwnYlh9H2SvLEypEFGye5iRmEMKjcGi7zk9UquigRjFtTLz0TYqr0ZGLZhaMHl/foy1bZR+Cwlw==}
+
+  unicornstudio-react@1.5.2:
+    resolution: {integrity: sha512-J0gHjw2mt8MWZpJ0dk5boeR2FRyEJE7sfDtpMNw/EY3EMSfBVYFZDiDUlyNn+w3WoKigi8dGL8mxlWt7hgMvFg==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      next: '*'
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+    peerDependenciesMeta:
+      next:
+        optional: true
 
   unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
@@ -5016,6 +5030,13 @@ snapshots:
   unenv@2.0.0-rc.24:
     dependencies:
       pathe: 2.0.3
+
+  unicornstudio-react@1.5.2(next@15.5.18(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+    dependencies:
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+    optionalDependencies:
+      next: 15.5.18(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
 
   unpipe@1.0.0: {}
 
