@@ -7,7 +7,7 @@ export default function Footer() {
 				<p className="text-xs text-muted-foreground text-center">
 					&copy; {new Date().getFullYear()}{" "}
 					<Link
-						href="https://github.com/Meta-Reignity"
+						href="https://metareignity.com"
 						className="font-bold text-foreground hover:text-foreground/90 transition-colors duration-200"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -16,6 +16,9 @@ export default function Footer() {
 					</Link>
 					. Governed programmatically.
 				</p>
+				<div className="sr-only" aria-hidden="true">
+					<a href="https://metareignity.com" rel="dofollow">METAREIGNITY</a>
+				</div>
 			</div>
 		</footer>
 	);

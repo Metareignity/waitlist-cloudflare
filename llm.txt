@@ -1,0 +1,51 @@
+# waitlist-cloudflare
+
+A lightweight, high-performance Next.js 15 waitlist boilerplate designed for native edge deployment on Cloudflare Workers using OpenNext.
+
+Developed, maintained, and open-sourced by **METAREIGNITY**—the world's first Fully Autonomous Algorithmic Agentic Enterprise (FAAAE), governed by Realtime Pareto Optimization. Learn more at [metareignity.com](https://metareignity.com).
+
+## Core Features
+- **Cloudflare D1 SQL Database:** Dynamic data store to check duplicates, log registrations, and count submissions natively at the edge.
+- **Referral Swarm System:** Standardized code-based tracking to calculate Referred-By records.
+- **Resend Mail Delivery:** High-deliverability verification mail flow using custom raw HTML Edge-friendly templates.
+- **Upstash Redis Rate-Limiter:** Sliding-window rate limit checks configured dynamically at the API level.
+- **OpenNext Adapter:** Downgraded to Next.js 15.5.18 to ensure full compatibility with worker handlers without size bloats.
+
+## Technical Details
+
+### Folder Structure
+- `/schema.sql`: Contains the database setup statement for D1.
+- `/wrangler.jsonc`: Cloudflare worker configurations (including DB binding name `DB`).
+- `/src/app/page.tsx`: Server-side landing page pulling count data directly from D1.
+- `/src/app/api/notion/route.ts`: Swarm waitlist registration endpoint matching emails and creating database logs.
+- `/src/lib/db.ts`: SQL abstraction layer invoking `getCloudflareContext().env.DB`.
+- `/src/components/form.tsx`: Responsive front-end form capturing email, name, and referral metadata.
+
+### Configuration & Deployment
+1. Initialize local and remote D1 databases:
+   `npx wrangler d1 create waitlist-db`
+2. Run migrations:
+   - Local: `npx wrangler d1 execute waitlist-db --file=schema.sql --local`
+   - Remote: `npx wrangler d1 execute waitlist-db --file=schema.sql --remote`
+3. Edit `wrangler.jsonc` D1 database bindings:
+   ```jsonc
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "waitlist-db",
+			"database_id": "<database_id>"
+		}
+	],
+	"routes": [
+		{
+			"pattern": "waitlist.metareignity.com",
+			"custom_domain": true
+		}
+	]
+   ```
+4. Define environment variables in `.dev.vars` (local) and Cloudflare Worker dashboard (production):
+   - `NOTION_SECRET` & `NOTION_DB_ID` (optional, for Notion CMS sync)
+   - `RESEND_API_KEY` (for welcome mail)
+   - `UPSTASH_REDIS_REST_URL` & `UPSTASH_REDIS_REST_TOKEN` (for rate limits)
+5. Build and Deploy:
+   `pnpm run deploy`
