@@ -54,34 +54,26 @@ export default function WaitlistForm({ onSuccessChange }: FormProps) {
 				referredBy: refCode || undefined,
 			};
 
-			const mailRes = await fetch("/api/mail", {
+			const response = await fetch("/api/waitlist", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(payload),
 			});
 
-			if (!mailRes.ok) {
-				const err = mailRes.status === 429 ? "Rate limited" : "Email failed";
-				throw new Error(err);
-			}
-
-			const notionRes = await fetch("/api/notion", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(payload),
-			});
-
-			if (!notionRes.ok) {
-				const errData = await notionRes.json();
-				if (notionRes.status === 409) {
+			if (!response.ok) {
+				const errData = await response.json();
+				if (response.status === 409) {
 					toast.error(errData.error || "You're already on the waitlist!");
 					return;
 				}
-				const err = notionRes.status === 429 ? "Rate limited" : "Notion failed";
-				throw new Error(err);
+				if (response.status === 429) {
+					toast.error(errData.error || "Too many attempts. Try again later.");
+					return;
+				}
+				throw new Error(errData.error || "Failed to join waitlist");
 			}
 
-			const { code } = await notionRes.json();
+			const { code } = await response.json();
 			const link = `${window.location.origin}/?ref=${code}`;
 			setShareLink(link);
 
@@ -107,13 +99,9 @@ export default function WaitlistForm({ onSuccessChange }: FormProps) {
 
 			setFormData({ email: "", name: "" });
 		} catch (error: unknown) {
-			if (error instanceof Error) {
-				const msg =
-					error.message === "Rate limited"
-						? "Too many attempts. Try again later."
-						: "Something went wrong. Try again.";
-				toast.error(msg);
-			}
+			console.error("Waitlist submit error:", error);
+			const msg = error instanceof Error ? error.message : "Something went wrong. Try again.";
+			toast.error(msg);
 		} finally {
 			setLoading(false);
 		}
@@ -200,7 +188,7 @@ export default function WaitlistForm({ onSuccessChange }: FormProps) {
 								initial={{ opacity: 0, x: 20 }}
 								animate={{ opacity: 1, x: 0 }}
 								exit={{ opacity: 0, x: 20 }}
-								className="space-y-3来说"
+								className="space-y-3"
 							>
 								<input
 									type="text"

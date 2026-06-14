@@ -4,7 +4,7 @@
 
 `waitlist-cloudflare` is a lightweight, high-performance, and secure Next.js 15 waitlist boilerplate designed for native serverless edge deployment on **Cloudflare Workers** using the **OpenNext Cloudflare adapter**. 
 
-It uses **Cloudflare D1** as the primary SQL data store, **Upstash Redis** for edge rate-limiting, and **Resend** for edge-compatible confirmation mail delivery.
+It uses **Cloudflare D1** as the primary SQL data store and **Upstash Redis** for edge rate-limiting.
 
 **Live Demo:** [waitlist.metareignity.com](https://waitlist.metareignity.com)
 
@@ -15,8 +15,6 @@ It uses **Cloudflare D1** as the primary SQL data store, **Upstash Redis** for e
 - **Next.js 15 & React 19:** Built on Next.js `15.5.18` to guarantee compatibility and prevent handler bundling errors on Cloudflare Workers.
 - **Cloudflare D1 Database:** Primary SQL database mapping waitlist records natively at the edge. Includes schema files and quick D1 migration commands.
 - **Referral Tracking Swarm:** Auto-generates unique, lightweight referral codes for registrants and tracks referring nodes.
-- **Notion CMS Sync (Optional):** Runs parallel synchronization with a Notion database in a try-catch block, ensuring Notion API rate limits or downtime do not impact user sign-ups.
-- **Resend Integration:** Custom edge-friendly raw HTML template compilation to avoid `@react-email` bundling overhead (keeping the gzipped bundle size under 1.1 MB!).
 - **Upstash Redis rate limiting:** Implements sliding-window IP rate limiting to prevent spam submissions.
 
 ---
@@ -36,17 +34,6 @@ To run this boilerplate, you need to configure the following services:
 ### 2. Upstash Redis
 1. Create a serverless Redis database at [Upstash](https://upstash.com/).
 2. Copy the `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` from your database details page.
-
-### 3. Resend Mail Delivery
-1. Create an account at [Resend](https://resend.com/).
-2. Add and verify your custom domain.
-3. Obtain your `RESEND_API_KEY` and set your sender email `RESEND_FROM_EMAIL` (e.g., `waitlist@yourdomain.com`).
-
-### 4. Notion CMS (Optional)
-If you want to sync sign-ups in parallel to Notion:
-1. Create a Notion database with columns: `Name` (Title), `Email` (Email), `Referral Code` (Text), `Referred By` (Text), and `Referrer` (Relation linked to same database).
-2. Generate an integration token from [Notion Integrations](https://www.notion.so/my-integrations) and share the database with the integration.
-3. Copy your `NOTION_SECRET` and `NOTION_DB_ID`.
 
 ---
 
@@ -74,10 +61,6 @@ If you want to sync sign-ups in parallel to Notion:
    ```env
    UPSTASH_REDIS_REST_URL=https://...
    UPSTASH_REDIS_REST_TOKEN=...
-   RESEND_API_KEY=re_...
-   RESEND_FROM_EMAIL=waitlist@yourdomain.com
-   NOTION_SECRET=secret_... # Optional
-   NOTION_DB_ID=...         # Optional
    ```
 
 5. **Start Development Server:**
