@@ -1,6 +1,6 @@
 # waitlist-cloudflare
 
-![METAREIGNITY Waitlist Screenshot](/public/screenshot.png)
+![METAREIGNITY Waitlist](/public/opengraph-image.png)
 
 `waitlist-cloudflare` is a lightweight, high-performance, and secure Next.js 15 waitlist boilerplate designed for native serverless edge deployment on **Cloudflare Workers** using the **OpenNext Cloudflare adapter**. 
 
