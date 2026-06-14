@@ -1,6 +1,6 @@
 # waitlist-cloudflare
 
-![METAREIGNITY Waitlist](/public/opengraph-image.png)
+![METAREIGNITY Waitlist Screenshot](/public/screenshot.png)
 
 `waitlist-cloudflare` is a lightweight, high-performance, and secure Next.js 15 waitlist boilerplate designed for native serverless edge deployment on **Cloudflare Workers** using the **OpenNext Cloudflare adapter**. 
 
@@ -25,11 +25,15 @@ To run this boilerplate, you only need a Cloudflare Account.
 
 ### Cloudflare Account & D1 Database
 1. Create a Cloudflare account.
-2. Initialize your D1 SQL database:
+2. Authenticate the wrangler CLI locally:
+   ```bash
+   npx wrangler login
+   ```
+3. Initialize your D1 SQL database:
    ```bash
    npx wrangler d1 create waitlist-db
    ```
-3. Copy the generated `database_id` and name into your `wrangler.jsonc` file.
+4. Copy the generated `database_id` and name into your `wrangler.jsonc` file.
 
 ---
 
@@ -98,6 +102,53 @@ No production environment variables or secret keys are needed in the Cloudflare 
 
 ## LLM Compatibility
 This repository includes an [llm.txt](llm.txt) file at the root containing standardized markdown context about the architecture, folder layout, and parameters for LLM-based coding agents (like Cursor, Gemini, Copilot) to ingest.
+
+---
+
+## GitHub Repository Recommendations
+
+To optimize your repository on GitHub, configure the **About** section on the right side of the repository page as follows:
+
+*   **Description:** ⚡ 100% Cloudflare-Native Next.js 15 Waitlist Boilerplate. Powered by Cloudflare D1 SQL, edge rate-limiting, referral swarms, and interactive WebGL shaders. Zero external dependencies.
+*   **Website:** `https://waitlist.metareignity.com`
+*   **Topics:** `nextjs`, `react`, `cloudflare-workers`, `cloudflare-pages`, `cloudflare-d1`, `sqlite`, `waitlist`, `boilerplate`, `tailwindcss`, `webgl`
+
+---
+
+## Multi-Domain Deployment Strategy
+
+If you want to maintain two separate sites (e.g., `waitlist.metareignity.com` as the waitlist boilerplate, and `metareignity.com` as your primary brand website) using the same code repository but with different configurations (`llm.txt`, custom domains, text copy), here are the two standard ways to manage this systematically:
+
+### Option A: Config-Based Builds (Single Git Branch — Recommended)
+Instead of maintaining separate git branches (which leads to merge conflicts over time), you keep all changes in a single branch (`main`) and split domain configurations into distinct files:
+
+1. **Create Environment Configuration Files:**
+   * Rename `wrangler.jsonc` to `wrangler.waitlist.jsonc` (for waitlist) and create a `wrangler.brand.jsonc` (for `metareignity.com`).
+   * Create `public/llm.waitlist.txt` and `public/llm.brand.txt`.
+2. **Add Custom Deploy Commands to `package.json`:**
+   Add target deployment scripts that copy the correct configuration before running the OpenNext/Wrangler build:
+   ```json
+   "scripts": {
+     "deploy:waitlist": "cp wrangler.waitlist.jsonc wrangler.jsonc && cp public/llm.waitlist.txt public/llm.txt && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+     "deploy:brand": "cp wrangler.brand.jsonc wrangler.jsonc && cp public/llm.brand.txt public/llm.txt && opennextjs-cloudflare build && opennextjs-cloudflare deploy"
+   }
+   ```
+This guarantees that you can deploy either site with a single command from `main`, without managing code drift across Git branches.
+
+### Option B: Branch-Specific Commits (Multi-Branch Git Strategy)
+If the two sites are highly divergent in content, use git branch staging:
+
+1. **Branch Layout:**
+   * `main`: Serves as the boilerplate and deploys to `waitlist.metareignity.com`.
+   * `brand-site`: Derived from `main` but contains custom configurations and custom landing page text, deploying to `metareignity.com`.
+2. **Git Workflow:**
+   * Make core feature additions, security updates, and bug fixes on `main`.
+   * When features are complete, merge `main` into `brand-site`:
+     ```bash
+     git checkout brand-site
+     git merge main
+     ```
+   * **Handling Config Drift:** Use a `.gitattributes` merge driver (e.g., setting `wrangler.jsonc merge=ours` and `public/llm.txt merge=ours` inside a `.gitattributes` file) to ensure Git never overwrites the branch-specific configurations during merges.
 
 ---
 
