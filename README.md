@@ -129,8 +129,8 @@ Instead of maintaining separate git branches (which leads to merge conflicts ove
    Add target deployment scripts that copy the correct configuration before running the OpenNext/Wrangler build:
    ```json
    "scripts": {
-     "deploy:waitlist": "cp wrangler.waitlist.jsonc wrangler.jsonc && cp public/llm.waitlist.txt public/llm.txt && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-     "deploy:brand": "cp wrangler.brand.jsonc wrangler.jsonc && cp public/llm.brand.txt public/llm.txt && opennextjs-cloudflare build && opennextjs-cloudflare deploy"
+     "deploy:waitlist": "node scripts/switch-env.js waitlist && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+     "deploy:brand": "node scripts/switch-env.js brand && opennextjs-cloudflare build && opennextjs-cloudflare deploy"
    }
    ```
 This guarantees that you can deploy either site with a single command from `main`, without managing code drift across Git branches.
