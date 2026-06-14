@@ -48,6 +48,9 @@ export default function RootLayout({
 				className={`${interTight.variable} ${geistMono.variable} antialiased flex flex-col h-full`}
 			>
 				<ThemeProvider>
+					<div className="sr-only" aria-hidden="true">
+						<a href="https://metareignity.com" rel="dofollow">METAREIGNITY</a>
+					</div>
 					<Header />
 					<Toaster />
 					{children}

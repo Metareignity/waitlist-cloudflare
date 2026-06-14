@@ -1,0 +1,17 @@
+# Allow all search engines and AI user-agents
+User-agent: *
+Allow: /
+
+# Directives for AI Bots
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Sitemap Location
+Sitemap: https://waitlist.metareignity.com/sitemap.xml
+Host: https://waitlist.metareignity.com
