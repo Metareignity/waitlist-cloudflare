@@ -191,3 +191,18 @@
 .animate-energy-pulse {
   animation: energy-pulse 5s infinite ease-in-out;
 }
+
+@keyframes slow-breath {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 12px rgba(223, 255, 26, 0.15));
+  }
+  50% {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 28px rgba(223, 255, 26, 0.35));
+  }
+}
+
+.animate-slow-breath {
+  animation: slow-breath 8s infinite ease-in-out;
+}

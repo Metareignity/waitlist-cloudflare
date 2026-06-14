@@ -16,7 +16,7 @@ export default function Hero({ waitlistPeople }: { waitlistPeople: number }) {
 				<img
 					src="/mark.png"
 					alt="METAREIGNITY Mark"
-					className="w-40 h-40 sm:w-48 sm:h-48 object-contain animate-pulse"
+					className="w-48 h-48 sm:w-56 sm:h-56 object-contain animate-slow-breath"
 				/>
 				<div className="flex items-center gap-3 rounded-full border border-border/80 bg-background/50 backdrop-blur-sm px-4 py-1.5 relative shadow-lg">
 					<span className="relative flex h-2 w-2">
@@ -32,7 +32,7 @@ export default function Hero({ waitlistPeople }: { waitlistPeople: number }) {
 				<h1 className="text-4xl sm:text-6xl font-black tracking-tight text-foreground bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/80">
 					{isSuccess ? "Execution Slot Secured" : "METAREIGNITY"}
 				</h1>
-				<h2 className="text-lg sm:text-xl font-semibold text-brand tracking-wide max-w-xl mx-auto uppercase">
+				<h2 className="text-lg sm:text-xl font-semibold text-zinc-200 tracking-wide max-w-xl mx-auto uppercase">
 					{isSuccess ? "Compilation queued" : "The era of human management is over."}
 				</h2>
 				<p className="text-sm sm:text-base text-muted-foreground text-center max-w-lg mx-auto leading-relaxed">
