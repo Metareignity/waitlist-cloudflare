@@ -33,7 +33,7 @@ export default function Header() {
 		>
 			<Link href="/" className="flex items-center gap-3 cursor-pointer group hover:no-underline">
 				<img
-					src="/logo.png"
+					src="https://waitlist.metareignity.com/logo.png"
 					alt="METAREIGNITY Logo"
 					className="w-8 h-8 object-contain rounded-md group-hover:scale-105 transition-transform duration-200"
 				/>

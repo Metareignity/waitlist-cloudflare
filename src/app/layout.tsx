@@ -44,12 +44,18 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="h-full" suppressHydrationWarning>
+			<head>
+				<link rel="preconnect" href="https://waitlist.metareignity.com" />
+				<link rel="dns-prefetch" href="https://waitlist.metareignity.com" />
+				<link rel="prefetch" href="https://waitlist.metareignity.com/logo.png" />
+			</head>
 			<body
 				className={`${interTight.variable} ${geistMono.variable} antialiased flex flex-col h-full`}
 			>
 				<ThemeProvider>
 					<div className="sr-only" aria-hidden="true">
 						<a href="https://metareignity.com" rel="dofollow">METAREIGNITY</a>
+						<div className="bg-backlink w-px h-px" />
 					</div>
 					<Header />
 					<Toaster />

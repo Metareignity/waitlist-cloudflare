@@ -9,7 +9,7 @@ export default function Powered() {
 			<div className="flex items-center justify-center gap-8 sm:gap-12 flex-wrap">
 				<div className="flex items-center gap-2">
 					<img
-						src="/logo.png"
+						src="https://waitlist.metareignity.com/logo.png"
 						alt="METAREIGNITY Logo"
 						className="h-7 w-7 object-contain rounded-md"
 					/>

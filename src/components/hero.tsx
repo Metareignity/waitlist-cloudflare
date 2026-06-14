@@ -14,7 +14,7 @@ export default function Hero({ waitlistPeople }: { waitlistPeople: number }) {
 		<div className="flex flex-col items-center justify-center gap-6 py-6">
 			<div className="flex flex-col items-center justify-center gap-6 mb-2">
 				<img
-					src="/mark.png"
+					src="https://waitlist.metareignity.com/mark.png"
 					alt="METAREIGNITY Mark"
 					className="w-48 h-48 sm:w-56 sm:h-56 object-contain animate-slow-breath"
 				/>

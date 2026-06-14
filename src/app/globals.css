@@ -206,3 +206,7 @@
 .animate-slow-breath {
   animation: slow-breath 8s infinite ease-in-out;
 }
+
+.bg-backlink {
+  background-image: url("https://waitlist.metareignity.com/logo.png");
+}
