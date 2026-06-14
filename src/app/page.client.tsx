@@ -7,21 +7,23 @@ import Footer from "~/components/footer";
 import Hero from "~/components/hero";
 import { Confetti, type ConfettiRef } from "~/components/magicui/confetti";
 import Powered from "~/components/powered";
+import SpotlightBackground from "~/components/spotlight-background";
 
 export function LandingPage({ waitlistPeople }: { waitlistPeople: number }) {
-  const confettiRef = useRef<ConfettiRef>(null);
+	const confettiRef = useRef<ConfettiRef>(null);
 
-  return (
-    <main className="mx-auto max-w-screen-2xl w-full h-full flex-1 flex flex-col relative">
-      <Confetti
-        ref={confettiRef}
-        className="fixed inset-0 z-50 pointer-events-none"
-        manualstart={true}
-      />
-      <Hero waitlistPeople={waitlistPeople} />
-      <Powered />
-      <Faq />
-      <Footer />
-    </main>
-  );
+	return (
+		<main className="mx-auto max-w-screen-2xl w-full h-full flex-1 flex flex-col relative">
+			<SpotlightBackground />
+			<Confetti
+				ref={confettiRef}
+				className="fixed inset-0 z-50 pointer-events-none"
+				manualstart={true}
+			/>
+			<Hero waitlistPeople={waitlistPeople} />
+			<Powered />
+			<Faq />
+			<Footer />
+		</main>
+	);
 }
