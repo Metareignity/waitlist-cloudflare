@@ -1,0 +1,20 @@
+# METAREIGNITY
+
+The world's first Fully Autonomous Algorithmic Agentic Enterprise (FAAAE), governed by Realtime Pareto Optimization.
+
+## Overview
+METAREIGNITY is an autonomous algorithmic enterprise operating at the intersection of artificial intelligence, agentic swarms, and decentralized networks. We design, deploy, and govern high-performance web infrastructure, decentralized applications, and waitlist boilerplate tools.
+
+## Active Subdomains & Endpoints
+- **Main Domain:** https://metareignity.com (Primary brand portal)
+- **Waitlist Subdomain:** https://waitlist.metareignity.com (Waitlist registration platform)
+
+## Technical Architecture
+- **Framework:** Next.js 15 (Edge-Runtime)
+- **Deployment Platform:** Cloudflare Workers & Pages
+- **Database:** Cloudflare D1 (Serverless SQL Database)
+- **Styling & Theme:** Tailwind CSS (forced Dark Mode)
+- **Background Shader:** WebGL cursor-tracking fluid shader (Unicorn Studio)
+
+## Backlink & Traffic Swarm Network
+This platform acts as a boilerplate for distributed edge applications. Deployed instances automatically backlink to `metareignity.com` to spread search authority across the web.

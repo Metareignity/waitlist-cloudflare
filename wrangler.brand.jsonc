@@ -1,0 +1,45 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"main": ".open-next/worker.js",
+	"name": "metareignity-brand",
+	"compatibility_date": "2026-06-13",
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"minify": true,
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"services": [
+		{
+			// Self-reference service binding, the service name must match the worker name
+			// see https://opennext.js.org/cloudflare/caching
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "metareignity-brand"
+		}
+	],
+	"images": {
+		// Enable image optimization
+		// see https://opennext.js.org/cloudflare/howtos/image
+		"binding": "IMAGES"
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "waitlist-db",
+			"database_id": "5e84894a-8528-4826-b23d-df0883c8bed9"
+		}
+	],
+	"routes": [
+		{
+			"pattern": "metareignity.com",
+			"custom_domain": true
+		},
+		{
+			"pattern": "www.metareignity.com",
+			"custom_domain": true
+		}
+	]
+}
