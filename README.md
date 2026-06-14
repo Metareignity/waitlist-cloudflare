@@ -41,7 +41,7 @@ To run this boilerplate, you only need a Cloudflare Account.
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/Meta-Reignity/waitlist-cloudflare.git
+   git clone https://github.com/Metareignity/waitlist-cloudflare.git
    cd waitlist-cloudflare
    ```
 

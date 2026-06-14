@@ -126,7 +126,7 @@ export default function Header() {
 					<XIcon className="w-5 h-5" />
 				</Link>
 				<Link
-					href="https://github.com/Meta-Reignity"
+					href="https://github.com/Metareignity"
 					target="_blank"
 					rel="noopener noreferrer"
 					className="cursor-pointer ml-1"
