@@ -59,3 +59,55 @@ export async function insertWaitlistUser(
     .bind(email, name, referralCode, referredBy)
     .run();
 }
+
+export interface RateLimitRow {
+  ip: string;
+  request_count: number;
+  last_request_at: number;
+}
+
+export async function isRateLimited(
+  ip: string,
+  limit = 2,
+  windowMs = 60000
+): Promise<boolean> {
+  const db = getDb();
+  const now = Date.now();
+
+  try {
+    const row = await db
+      .prepare("SELECT * FROM rate_limits WHERE ip = ?")
+      .bind(ip)
+      .first<RateLimitRow>();
+
+    if (!row) {
+      await db
+        .prepare("INSERT INTO rate_limits (ip, request_count, last_request_at) VALUES (?, 1, ?)")
+        .bind(ip, now)
+        .run();
+      return false;
+    }
+
+    const timePassed = now - row.last_request_at;
+    if (timePassed < windowMs) {
+      if (row.request_count >= limit) {
+        return true;
+      }
+      await db
+        .prepare("UPDATE rate_limits SET request_count = request_count + 1 WHERE ip = ?")
+        .bind(ip)
+        .run();
+      return false;
+    } else {
+      await db
+        .prepare("UPDATE rate_limits SET request_count = 1, last_request_at = ? WHERE ip = ?")
+        .bind(now, ip)
+        .run();
+      return false;
+    }
+  } catch (error) {
+    console.error("D1 Rate Limiting error:", error);
+    // If rate limiting check fails, fail-open to not block legit users
+    return false;
+  }
+}

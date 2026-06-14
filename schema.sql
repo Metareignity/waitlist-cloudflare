@@ -6,3 +6,9 @@ CREATE TABLE IF NOT EXISTS waitlist (
   referred_by TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS rate_limits (
+  ip TEXT PRIMARY KEY,
+  request_count INTEGER DEFAULT 1,
+  last_request_at INTEGER NOT NULL
+);

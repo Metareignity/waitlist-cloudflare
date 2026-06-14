@@ -4,7 +4,7 @@
 
 `waitlist-cloudflare` is a lightweight, high-performance, and secure Next.js 15 waitlist boilerplate designed for native serverless edge deployment on **Cloudflare Workers** using the **OpenNext Cloudflare adapter**. 
 
-It uses **Cloudflare D1** as the primary SQL data store and **Upstash Redis** for edge rate-limiting.
+The stack is **100% Cloudflare-only** and requires zero external service configurations.
 
 **Live Demo:** [waitlist.metareignity.com](https://waitlist.metareignity.com)
 
@@ -15,25 +15,21 @@ It uses **Cloudflare D1** as the primary SQL data store and **Upstash Redis** fo
 - **Next.js 15 & React 19:** Built on Next.js `15.5.18` to guarantee compatibility and prevent handler bundling errors on Cloudflare Workers.
 - **Cloudflare D1 Database:** Primary SQL database mapping waitlist records natively at the edge. Includes schema files and quick D1 migration commands.
 - **Referral Tracking Swarm:** Auto-generates unique, lightweight referral codes for registrants and tracks referring nodes.
-- **Upstash Redis rate limiting:** Implements sliding-window IP rate limiting to prevent spam submissions.
+- **Native D1 Rate Limiting:** Implements IP rate limiting natively inside Cloudflare D1 with a `rate_limits` table to prevent spam submissions, requiring no external databases or Redis instances.
 
 ---
 
-## Prerequisites & External Services Setup
+## Prerequisites & Setup
 
-To run this boilerplate, you need to configure the following services:
+To run this boilerplate, you only need a Cloudflare Account.
 
-### 1. Cloudflare Account & D1 Database
+### Cloudflare Account & D1 Database
 1. Create a Cloudflare account.
 2. Initialize your D1 SQL database:
    ```bash
    npx wrangler d1 create waitlist-db
    ```
 3. Copy the generated `database_id` and name into your `wrangler.jsonc` file.
-
-### 2. Upstash Redis
-1. Create a serverless Redis database at [Upstash](https://upstash.com/).
-2. Copy the `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` from your database details page.
 
 ---
 
@@ -56,18 +52,11 @@ To run this boilerplate, you need to configure the following services:
    npx wrangler d1 execute waitlist-db --file=schema.sql --local
    ```
 
-4. **Environment Variables:**
-   Create a local environment variables file `.dev.vars` in the root (Cloudflare equivalent of `.env.local` for local wrangler testing):
-   ```env
-   UPSTASH_REDIS_REST_URL=https://...
-   UPSTASH_REDIS_REST_TOKEN=...
-   ```
-
-5. **Start Development Server:**
+4. **Start Development Server:**
    ```bash
    pnpm dev
    ```
-   Open `http://localhost:3000` in your browser.
+   Open `http://localhost:3000` in your browser. (Note: No local `.env` or `.dev.vars` environment variables are needed!).
 
 ---
 
@@ -103,8 +92,7 @@ To run this boilerplate, you need to configure the following services:
    pnpm run deploy
    ```
 
-4. **Configure Production Environment Variables:**
-   Go to your Cloudflare Dashboard -> **Workers & Pages** -> Select **waitlist-cloudflare** -> **Settings** -> **Variables** -> Add all variables listed in your local `.dev.vars` file.
+No production environment variables or secret keys are needed in the Cloudflare Dashboard!
 
 ---
 
