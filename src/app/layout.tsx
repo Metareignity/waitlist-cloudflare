@@ -18,7 +18,7 @@ const interTight = Inter_Tight({
 });
 
 export const metadata: Metadata = {
-	title: "METAREIGNITY — FAAAE",
+	title: "METAREIGNITY | Autonomous Enterprise Harness",
 	description:
 		"The era of human management is over. Governed by Realtime Pareto Optimization. Join the waitlist for the first Fully Autonomous Algorithmic Agentic Enterprise (FAAAE).",
 	openGraph: {
