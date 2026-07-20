@@ -48,7 +48,7 @@ export default function Hero({ waitlistPeople }: { waitlistPeople: number }) {
 				<People count={waitlistPeople} />
 			</div>
 			<div className="w-full flex justify-center mt-4">
-				<Countdown period={new Date("2026-08-01")} />
+				<Countdown period={new Date("2026-08-21")} />
 			</div>
 		</div>
 	);
